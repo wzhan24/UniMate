@@ -1,0 +1,54 @@
+# Input file for directly generating nequil equivalent networks
+model_name: "Si_NEQUIP_EF_Cubuck"
+elements: # list all elements present
+  - Si
+
+# ========= Misc info ================
+parity: true
+nonlinearity_type: gate   # may be 'gate' or 'norm'
+scaling:
+  - energy: 1.0
+  - force: 1.0
+shifting:
+  - energy: 0.0
+  - force: 0.0
+nonlinearity_scalars:
+  e: silu
+  o: tanh
+nonlinearity_gates:
+  e: silu
+  o: tanh
+
+
+# ======== radial basis ==============
+r_max: 4.0 # cutoff
+n_radial_basis: 8   # number of radial basis functions
+p: 6 # polynomial degree, default 6
+
+
+# ======== edges rep =================
+lmax: 1
+
+
+# ======== Conv network ==============
+n_conv_layers: 3
+conv_feature_size: 32 # width of conv layer features, kind of like number of channels in CNN
+radial_network_layers: 2 # layers in FCN to be applied to radial feature
+radial_network_hidden_dim: 64
+average_num_neigh: 16.65625 # Cubuck DS
+                   # 16.0 # GAP DS
+
+# ======== final ======================
+post_conv_layers: 2
+post_conv_irreps: # expected repr at end of each layer
+  - "16x0e"
+  - "1x0e"
+shift:  -5.68861110767901667629
+scale: 0.17700068345241257162
+  #Cubuck dataset:
+  #Mean: -5.68861110767901667629
+  #Std: 0.17700068345241257162
+  #
+  #Gap dataset:
+  #Mean: -162.72886696341200263305
+  #Std: 0.65145396754652284965
